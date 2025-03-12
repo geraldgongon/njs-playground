@@ -8,3 +8,5 @@
 // Clicking on the timer should start/stop the timer. The Start/Stop button's label should update accordingly as well.
 // It'd be a nice optional addition to format the time to display in hh:mm:ss:ms format.
 // You are free to exercise your creativity to style the appearance of the stopwatch. You can try out Google's stopwatch widget for inspiration and an example.
+
+export {};
