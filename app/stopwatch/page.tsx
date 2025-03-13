@@ -1,8 +1,13 @@
 "use client";
-
+// import React from "react"; //needed to get rid of UMD errors.  find a way to remove this
 import { useEffect, useRef, useState } from "react";
 
 interface StopwatchProps {}
+
+export const SECONDS_IN_MILLIS = 1000;
+export const MINUTE_IN_MILLIS = SECONDS_IN_MILLIS * 60;
+export const HOUR_IN_MILLIS = MINUTE_IN_MILLIS * 60;
+export const DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
 
 const Stopwatch = (props: StopwatchProps) => {
   const [time, setTime] = useState(0);
@@ -32,22 +37,20 @@ const Stopwatch = (props: StopwatchProps) => {
     setIsRunning(false);
   };
 
-  const HOURS_IN_MILLIS = 1000 * 60 * 60;
-  const MINUTES_IN_MILLIS = 1000 * 60;
-  const SECONDS_IN_MILLIS = 1000;
-
   const formatTime = (milliseconds: number) => {
-    const hours = Math.floor(milliseconds / HOURS_IN_MILLIS);
-    const minutes = Math.floor(milliseconds / MINUTES_IN_MILLIS) % 60;
+    const days = Math.floor(milliseconds / DAY_IN_MILLIS) % 24;
+    const hours = Math.floor(milliseconds / HOUR_IN_MILLIS) % 24;
+    const minutes = Math.floor(milliseconds / MINUTE_IN_MILLIS) % 60;
     const seconds = Math.floor(milliseconds / SECONDS_IN_MILLIS) % 60;
     const ms = milliseconds % 1000;
 
+    const formattedDays = String(days).padStart(2, "0");
     const formattedHours = String(hours).padStart(2, "0");
     const formattedMinutes = String(minutes).padStart(2, "0");
     const formattedSeconds = String(seconds).padStart(2, "0");
     const formattedMs = String(ms).padStart(3, "0");
 
-    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMs}`;
+    return `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMs}`;
   };
 
   return (

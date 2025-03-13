@@ -1,4 +1,6 @@
 .next/**
+coverage
 node_modules
 yarn.lock
 app/lib/hooks/useWebSocket.ts
+
