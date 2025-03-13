@@ -1,5 +1,4 @@
 "use client";
-// import React from "react"; //needed to get rid of UMD errors.  find a way to remove this
 import { useEffect, useRef, useState } from "react";
 
 interface StopwatchProps {}
