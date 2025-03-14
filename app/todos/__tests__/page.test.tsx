@@ -8,25 +8,7 @@ global.fetch = jest.fn();
 // Mock the TodoList component since we'll test it separately
 jest.mock("../internals/TodoList", () => {
   return function MockTodoList(props: { mockTodos: Todo[] }) {
-    const mockTodos: Todo[] = [
-      {
-        userId: 1,
-        id: 1,
-        title: "Test todo 1",
-        completed: false,
-      },
-      {
-        userId: 1,
-        id: 2,
-        title: "Test todo 2",
-        completed: true,
-      },
-    ];
-    return (
-      <div data-testid="todo-list">
-        Mocked TodoList with {mockTodos.length} todos
-      </div>
-    );
+    return <div data-testid="todo-list">Mocked TodoList</div>;
   };
 });
 
@@ -64,7 +46,7 @@ describe("TodoPage", () => {
 
     // Verify TodoList is rendered with the mock data
     expect(screen.getByTestId("todo-list")).toHaveTextContent(
-      "Mocked TodoList with 2 todos",
+      "Mocked TodoList",
     );
   });
 
