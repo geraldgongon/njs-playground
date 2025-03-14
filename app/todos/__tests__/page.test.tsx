@@ -6,11 +6,9 @@ import "@testing-library/jest-dom";
 global.fetch = jest.fn();
 
 // Mock the TodoList component since we'll test it separately
-jest.mock("../internals/TodoList", () => {
-  return function MockTodoList(props: { mockTodos: Todo[] }) {
-    return <div data-testid="todo-list">Mocked TodoList</div>;
-  };
-});
+jest.mock("../internals/TodoList", () => () => (
+  <div data-testid="todo-list">Mocked TodoList</div>
+));
 
 describe("TodoPage", () => {
   const mockTodos = [
