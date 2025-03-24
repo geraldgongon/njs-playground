@@ -24,6 +24,7 @@
     },
     "forceConsistentCasingInFileNames": true
   },
+<<<<<<< HEAD
   "include": [
     "next-env.d.ts",
     "**/*.ts",
@@ -32,5 +33,8 @@
     "app/stopwatch/__tests__/page.test.ts",
     "jest.config.ts.old"
   ],
+=======
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+>>>>>>> 8658c5e (config updates)
   "exclude": ["node_modules"]
 }
