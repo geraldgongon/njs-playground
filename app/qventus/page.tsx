@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 
 /**
  * requirements:
- * Create a component captures:
+ *
+ * Create a component that captures:
  * 1. all clicks anywhere on the screen
  * 2. timestamp of each click
  *
  * and displays:
- * 1. total clicks on the page
+ * 1. the total clicks on the page
  * 2. the timestamp of each click
  *  */
-// 1.
 
 const ClickAround = () => {
   const [clicks, setClicks] = useState<number>(0);
