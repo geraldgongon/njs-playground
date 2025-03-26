@@ -1,9 +1,13 @@
 "use client";
 
+import useDebounce from "../lib/hooks/useDebounce";
 import useWindow from "../lib/hooks/useWindow";
 
 export default function Exercises() {
   const { width, height } = useWindow();
+  const { debounceHandler } = useDebounce(() => {
+    console.log("debounce function triggered");
+  });
   return (
     <>
       <div>Some random exercises to shake off those React cobwebs</div>
@@ -15,6 +19,8 @@ export default function Exercises() {
         </li>
         <li>
           Implement useDebounce, a hook that delays the execution of a function
+          <br />
+          <input type="text" onKeyUp={debounceHandler} />
         </li>
         <li>
           Implement usePrevious, a hook to track the previous state value{" "}
