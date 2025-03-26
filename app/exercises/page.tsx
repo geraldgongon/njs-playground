@@ -1,17 +1,20 @@
 "use client";
 
 import useDebounce from "../lib/hooks/useDebounce";
+import usePrevious from "../lib/hooks/usePrevious";
 import useWindow from "../lib/hooks/useWindow";
 
 export default function Exercises() {
   const { width, height } = useWindow();
+  const { currentVal, previousVal, clickHandler } = usePrevious();
   const { debounceHandler } = useDebounce(() => {
     console.log("debounce function triggered");
   });
+
   return (
     <>
       <div>Some random exercises to shake off those React cobwebs</div>
-      <p>custom hooks</p>
+      <h2 className="text-xl pt-10">custom hooks</h2>
       <ul>
         <li>
           Implement useWindow, a custom hook that tracks the window size and
@@ -23,7 +26,13 @@ export default function Exercises() {
           <input type="text" onKeyUp={debounceHandler} />
         </li>
         <li>
-          Implement usePrevious, a hook to track the previous state value{" "}
+          <a onClick={clickHandler}>
+            Implement usePrevious, a hook to track the previous state value
+          </a>
+          <br />
+          CurrentVal: {currentVal}
+          <br />
+          PreviousVal: {previousVal}
         </li>
         <li>
           Implement useLocalStorage, a hook that reads and writes values to
@@ -31,7 +40,7 @@ export default function Exercises() {
         </li>
       </ul>
 
-      <p>Take Home Assignments</p>
+      <h2 className="text-xl pt-10">Take Home Assignments</h2>
       <ul>
         <li>
           Build a simple task management app where users can add, edit, and
