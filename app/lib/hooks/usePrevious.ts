@@ -7,8 +7,9 @@ interface usePreviousResponse {
 }
 
 const usePrevious = (): usePreviousResponse => {
+  // capture previous state in a ref to prevent excessive re-renders
   const statevarRef = useRef(0);
-  // capture the current state and the previous state
+  // capture the current value in state
   const [statevar, setStatevar] = useState<number>(0);
 
   const clickHandler = () => {
