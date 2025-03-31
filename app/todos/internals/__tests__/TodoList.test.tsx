@@ -3,7 +3,7 @@ import TodoList from "../TodoList";
 import "@testing-library/jest-dom";
 
 describe("TodoList", () => {
-  const mockTodos = [
+  const MOCK_TODOS = [
     {
       userId: 1,
       id: 1,
@@ -17,7 +17,12 @@ describe("TodoList", () => {
       completed: true,
     },
   ];
+  let mockTodos = [...MOCK_TODOS];
 
+  afterEach(() => {
+    mockTodos = [...MOCK_TODOS]
+  }
+  )
   it("renders all todos", () => {
     render(<TodoList initialTodos={mockTodos} />);
 
@@ -76,4 +81,17 @@ describe("TodoList", () => {
     expect(list).toBeInTheDocument();
     expect(list.children).toHaveLength(0);
   });
+
+
+  it("hides deleted todos", () => {
+    render(<TodoList initialTodos={mockTodos} />);
+
+    const deleteIcon = screen.getByTestId("delete-1");
+    
+    // trash the first todo
+    fireEvent.click(deleteIcon)
+
+    const firstTodo = screen.queryByText('Test todo 1');
+    expect(firstTodo).toBeNull();
+  })
 });
