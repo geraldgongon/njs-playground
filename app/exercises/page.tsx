@@ -7,7 +7,6 @@ import useWindow from "../lib/hooks/useWindow";
 import { useState } from "react";
 import { checklist, takeHomeAssignments } from "./internals/assignments";
 import { useGetData } from "../lib/hooks/useGetData";
-import { Todo } from "../todos/page";
 
 export default function Exercises() {
   const [assignments, setAssignments] = useState(takeHomeAssignments);

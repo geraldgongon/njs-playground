@@ -56,4 +56,5 @@ export const takeHomeAssignments: checklist[] = [
   { label: "Build a curry function", completed: false },
   { label: "Build a cloneDeep function", completed: false },
   { label: "implement zustand", completed: false },
+  { label: "persist todos into localstorage", completed: false },
 ];
