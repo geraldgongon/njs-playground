@@ -35,7 +35,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "app/exercises/minesweeper/internals/ErrorBoundary.jsx"  ],
   "exclude": [
     "node_modules"
   ]
