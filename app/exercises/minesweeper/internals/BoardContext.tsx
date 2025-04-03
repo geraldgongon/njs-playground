@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useState } from "react";
 import { TileDetail } from "./types";
 import { hasBomb, plantBombs } from "./helpers";
@@ -49,6 +51,7 @@ export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const value: BoardContextProps = {
     board,
+    minesRemaining,
     initBoard,
     updateBoard,
   };

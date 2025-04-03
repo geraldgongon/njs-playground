@@ -1,10 +1,8 @@
 "use client";
-
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ErrorBoundary from "./internals/ErrorBoundary";
-import { hasBomb, plantBombs } from "./internals/helpers";
-import { Levels, TileDetail } from "./internals/types";
+import { Levels } from "./internals/types";
 import { Board } from "./internals/styled/styled";
 import Tile from "./internals/Tile";
 import {
