@@ -13,7 +13,7 @@ export type TileDetail = {
   y: number;
   text?: string;
   isFlagged: boolean;
-  isBomb: boolean;
+  isMine: boolean;
   isOpen: boolean;
 };
 

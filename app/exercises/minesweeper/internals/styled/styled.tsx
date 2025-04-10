@@ -1,12 +1,6 @@
 import { styled } from "@mui/material";
 import { BoardProps, TileProps } from "../types";
 
-// const MyComponent = styled("div")`
-//   color: ${(props) =>
-//     props.textColor || "black"}; // Default to black if no textColor prop
-//   font-size: ${(props) => props.fontSize || "16px"};
-// `;
-
 export const Board = styled("div")`
   display: grid;
 
@@ -25,9 +19,9 @@ export const Board = styled("div")`
 `;
 
 export const StyledTile = styled("div")`
-  ${({ tile: { isFlagged, isOpen, isBomb } }: TileProps) => `
+  ${({ tile: { isFlagged, isOpen, isMine } }: TileProps) => `
     background-color: ${
-      isOpen && isBomb
+      isOpen && isMine
         ? "red"
         : isFlagged
           ? "yellow"

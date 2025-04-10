@@ -20,7 +20,7 @@ const Tile = ({ tile: tileProp }: TileProps): React.ReactElement<TileProps> => {
     if (tile.isOpen || gameOver) return;
 
     // if the clicked tile is a bomb, just return right away
-    if (tile.isBomb) {
+    if (tile.isMine) {
       setTile((tile) => ({ ...tile, isOpen: true }));
       setGameOver(true);
       setWin(false);

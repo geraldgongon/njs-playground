@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 import { Board, TileDetail } from "./types";
-import { hasBomb, plantBombs } from "./helpers";
+import { hasMine, plantMines } from "./helpers";
 
 interface BoardContextProps {
   board: Board;
@@ -37,8 +37,8 @@ export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
     // create a new board
     const newBoard: Board = [];
 
-    // determine where to place the bombs
-    const bombs = plantBombs(boardSize, mines);
+    // determine where to place the mines
+    const mines = plantMines(boardSize, mines);
 
     // create the board
     for (let i = 0; i < boardSize; i++) {
@@ -48,7 +48,7 @@ export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
           x: i,
           y: j,
           isFlagged: false,
-          isBomb: hasBomb(bombs, `${i}${j}`),
+          isMine: hasMine(mines, `${i}${j}`),
           isOpen: false,
         };
       }
@@ -65,16 +65,16 @@ export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const setWinStatus = (board: Board): void => {
     // traverse the board.  in order to win:
     // 1. all tiles should be open
-    // 2. all bombs should be flagged
+    // 2. all mines should be flagged
 
-    const bombs: TileDetail[] = [];
+    const mines: TileDetail[] = [];
     board.forEach((row) =>
       row.forEach((tile) => {
-        if (tile.isBomb) bombs.push(tile);
+        if (tile.isMine) mines.push(tile);
       })
     );
 
-    if (bombs.every((bomb) => bomb.isFlagged)) {
+    if (mines.every((bomb) => bomb.isFlagged)) {
       setWin(true);
       setGameOver(true);
     }

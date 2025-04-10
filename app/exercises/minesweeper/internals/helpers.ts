@@ -2,12 +2,12 @@ import { Board, TileDetail } from "./types";
 
 /**
  * Given the size of the board and the # of mines, generate a list of random coordinates
- * and plant the bombs along the board
+ * and plant the mines along the board
  * @param boardSize The size of one edge of the board
  * @param mines number of mines to plant on the board
  * @returns Set of unique coordinates
  */
-export const plantBombs = (boardSize: number, mines: number): Set<string> => {
+export const plantMines = (boardSize: number, mines: number): Set<string> => {
   const mineHash = new Set<string>();
 
   while (mines > 0) {
@@ -29,13 +29,13 @@ export const plantBombs = (boardSize: number, mines: number): Set<string> => {
  * @param coord
  * @returns boolean
  */
-export const hasBomb = (mines: Set<string>, coord: string): boolean =>
+export const hasMine = (mines: Set<string>, coord: string): boolean =>
   mines.has(coord);
 
 /**
  * This method is called when any tile is clicked.  If you click on a bomb, it's game over.
- * Otherwise, check how many bombs exist in the surrounding cells.  If we find bombs in surrounding
- * cells, then we just add the # of bombs in the cell.  If no mines are found in any
+ * Otherwise, check how many mines exist in the surrounding cells.  If we find mines in surrounding
+ * cells, then we just add the # of mines in the cell.  If no mines are found in any
  * surrounding cells, then we call this function recursively on all surrounding cells.
  *
  * @param board A copy of the board object in context
@@ -45,13 +45,13 @@ export const hasBomb = (mines: Set<string>, coord: string): boolean =>
 export const revealTile = (board: Board, { x, y }: TileDetail): Board => {
   const currentTile = board[x][y];
   if (currentTile.isFlagged || currentTile.isOpen) return board;
-  if (currentTile.isBomb) {
+  if (currentTile.isMine) {
     currentTile.isOpen = true;
     return board;
   }
 
   const adjacent = getAdjacentTiles(board, currentTile);
-  const mines = adjacent.filter((tile) => tile.isBomb);
+  const mines = adjacent.filter((tile) => tile.isMine);
 
   if (!mines.length) {
     adjacent.forEach((tile) => {

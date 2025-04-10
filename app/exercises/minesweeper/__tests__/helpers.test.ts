@@ -1,4 +1,4 @@
-import { hasBomb, plantBombs } from "../internals/helpers";
+import { hasMine, plantBombs } from "../internals/helpers";
 
 describe("plantBombs", () => {
   it("should build up a list of bombs", () => {
@@ -26,6 +26,6 @@ describe("hasBombs ", () => {
     const mines: Set<string> = new Set(set);
     const coord = `${x}${y}`;
 
-    expect(hasBomb(mines, coord)).toEqual(result);
+    expect(hasMine(mines, coord)).toEqual(result);
   });
 });
