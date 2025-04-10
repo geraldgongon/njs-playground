@@ -1,5 +1,4 @@
 import { hasBomb, plantBombs } from "../internals/helpers";
-import { Coordinate } from "../page";
 
 describe("plantBombs", () => {
   it("should build up a list of bombs", () => {

@@ -1,37 +1,50 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
-import { TileDetail } from "./types";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { Board, TileDetail } from "./types";
 import { hasBomb, plantBombs } from "./helpers";
 
 interface BoardContextProps {
-  board: TileDetail[][];
+  board: Board;
   initBoard: (boardSize: number, mines: number) => void;
-  updateBoard: (board: TileDetail[][]) => void;
+  updateBoard: (board: Board) => void;
   minesRemaining: number;
+  updateMinesRemaining: (addend: number) => void;
+  win: boolean | undefined;
+  setWin: Dispatch<SetStateAction<boolean | undefined>>;
+  gameOver: boolean;
+  setGameOver: Dispatch<SetStateAction<boolean>>;
 }
 const BoardContext = createContext<BoardContextProps | undefined>(undefined);
 
 export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [board, setBoard] = useState<TileDetail[][]>([]);
-  const [minesRemaining, setMinesRemaining] = useState<number | undefined>(
-    undefined
-  );
+  const [board, setBoard] = useState<Board>([]);
+  const [win, setWin] = useState<boolean | undefined>(undefined);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [minesRemaining, setMinesRemaining] = useState<number>(0);
 
   const initBoard = (boardSize: number, mines: number): void => {
     // create a new board
-    const board: TileDetail[][] = [];
+    const newBoard: Board = [];
 
     // determine where to place the bombs
     const bombs = plantBombs(boardSize, mines);
 
     // create the board
     for (let i = 0; i < boardSize; i++) {
-      board[i] = [];
+      newBoard[i] = [];
       for (let j = 0; j < boardSize; j++) {
-        board[i][j] = {
+        newBoard[i][j] = {
           x: i,
           y: j,
           isFlagged: false,
@@ -41,19 +54,46 @@ export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     }
     setMinesRemaining(mines);
-    setBoard(board);
+    setBoard(newBoard);
   };
 
-  const updateBoard = (newBoard: TileDetail[][]): void => {
-    console.log("new board:", newBoard);
+  const updateBoard = (newBoard: Board): void => {
     setBoard(newBoard);
+    setWinStatus(newBoard);
+  };
+
+  const setWinStatus = (board: Board): void => {
+    // traverse the board.  in order to win:
+    // 1. all tiles should be open
+    // 2. all bombs should be flagged
+
+    const bombs: TileDetail[] = [];
+    board.forEach((row) =>
+      row.forEach((tile) => {
+        if (tile.isBomb) bombs.push(tile);
+      })
+    );
+
+    if (bombs.every((bomb) => bomb.isFlagged)) {
+      setWin(true);
+      setGameOver(true);
+    }
+  };
+
+  const updateMinesRemaining = (addend: number) => {
+    setMinesRemaining((prev) => prev + addend);
   };
 
   const value: BoardContextProps = {
     board,
-    minesRemaining,
     initBoard,
     updateBoard,
+    minesRemaining,
+    updateMinesRemaining,
+    win,
+    setWin,
+    gameOver,
+    setGameOver,
   };
 
   return (

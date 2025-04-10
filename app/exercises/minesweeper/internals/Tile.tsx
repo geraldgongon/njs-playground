@@ -1,24 +1,47 @@
 import React, { useState } from "react";
-import { TileDetail, TileProps } from "./types";
+import { Board, TileDetail, TileProps } from "./types";
 import { StyledTile } from "./styled/styled";
 import { useBoardContext } from "./BoardContext";
 import { revealTile } from "./helpers";
 
 const Tile = ({ tile: tileProp }: TileProps): React.ReactElement<TileProps> => {
+  console;
   const [tile, setTile] = useState<TileDetail>(tileProp);
-  const { board, updateBoard } = useBoardContext();
+  const {
+    board,
+    updateBoard,
+    updateMinesRemaining,
+    setWin,
+    setGameOver,
+    gameOver,
+  } = useBoardContext();
 
   const handleClick = (e: React.MouseEvent) => {
+    if (tile.isOpen || gameOver) return;
+
     // if the clicked tile is a bomb, just return right away
-    // and show the "you lose" messaging and reveal all the bombs
+    if (tile.isBomb) {
+      setTile((tile) => ({ ...tile, isOpen: true }));
+      setGameOver(true);
+      setWin(false);
+      return;
+    }
+
     const newBoard = revealTile([...board], tile);
     updateBoard(newBoard);
   };
 
   const handleRightClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (tile.isOpen) return;
-    setTile({ ...tile, isFlagged: !tile.isFlagged });
+    if (tile.isOpen || gameOver) return;
+
+    updateTile([...board], tile);
+    updateMinesRemaining(tile.isFlagged ? -1 : 1);
+  };
+
+  const updateTile = (newBoard: Board, currentTile: TileDetail) => {
+    newBoard[currentTile.x][currentTile.y].isFlagged = !currentTile.isFlagged;
+    updateBoard(newBoard);
   };
 
   return (

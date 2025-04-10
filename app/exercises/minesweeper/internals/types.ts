@@ -17,6 +17,8 @@ export type TileDetail = {
   isOpen: boolean;
 };
 
+export type Board = TileDetail[][];
+
 export type TileProps = {
   tile: TileDetail;
 };

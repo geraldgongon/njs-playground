@@ -1,4 +1,4 @@
-import { TileDetail } from "./types";
+import { Board, TileDetail } from "./types";
 
 /**
  * Given the size of the board and the # of mines, generate a list of random coordinates
@@ -42,10 +42,7 @@ export const hasBomb = (mines: Set<string>, coord: string): boolean =>
  * @param tile  The current tile that was clicked on
  * @returns the updated board
  */
-export const revealTile = (
-  board: TileDetail[][],
-  { x, y }: TileDetail
-): TileDetail[][] => {
+export const revealTile = (board: Board, { x, y }: TileDetail): Board => {
   const currentTile = board[x][y];
   if (currentTile.isFlagged || currentTile.isOpen) return board;
   if (currentTile.isBomb) {
@@ -62,6 +59,7 @@ export const revealTile = (
       revealTile(board, tile);
     });
   } else {
+    currentTile.isOpen = true;
     currentTile.text = mines.length.toString();
   }
 
@@ -75,10 +73,7 @@ export const revealTile = (
  * @param tile The current tile
  * @returns
  */
-const getAdjacentTiles = (
-  board: TileDetail[][],
-  { x, y }: TileDetail
-): TileDetail[] => {
+const getAdjacentTiles = (board: Board, { x, y }: TileDetail): TileDetail[] => {
   const adjacent = [];
   for (let i = x - 1; i <= x + 1; i++) {
     for (let j = y - 1; j <= y + 1; j++) {
