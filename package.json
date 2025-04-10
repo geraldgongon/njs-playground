@@ -8,13 +8,16 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --coverage",
-    "clear": "jest --clearCache"
+    "clear": "jest --clearCache",
+    "analyze": "ANALYZE=true yarn build"
+
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
+    "@next/bundle-analyzer": "^15.2.4",
     "@typescript-eslint/parser": "^5.0.1",
     "next": "15.1.7",
     "react": "^19.0.0",
