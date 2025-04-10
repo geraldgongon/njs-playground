@@ -29,7 +29,6 @@ const Minesweeper = () => {
   useEffect(() => {
     if (difficulty) {
       initBoard(BoardSizes[difficulty], Mines[difficulty]);
-      initBoard(10, 3);
     }
   }, [difficulty]);
 
