@@ -38,7 +38,7 @@ export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
     const newBoard: Board = [];
 
     // determine where to place the mines
-    const mines = plantMines(boardSize, mines);
+    const bombs = plantMines(boardSize, mines);
 
     // create the board
     for (let i = 0; i < boardSize; i++) {
@@ -48,7 +48,7 @@ export const BoardContextProvider: React.FC<{ children: React.ReactNode }> = ({
           x: i,
           y: j,
           isFlagged: false,
-          isMine: hasMine(mines, `${i}${j}`),
+          isMine: hasMine(bombs, `${i}${j}`),
           isOpen: false,
         };
       }
