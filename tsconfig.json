@@ -33,9 +33,11 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
+    "**/*.js",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "app/exercises/minesweeper/internals/ErrorBoundary.jsx"  ],
+    ".next/types/**/*.ts",
+    "app/lib/Components/ErrorBoundary.jsx"  
+  ],
   "exclude": [
     "node_modules"
   ]
